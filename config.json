@@ -1,0 +1,238 @@
+{
+  "level1": {
+    "size": [
+      918,
+      515
+    ],
+    "map": [
+      [
+        "tileGrass1",
+        "tileGrass2",
+        "tileGrass_roadNorth",
+        "tileGrass1",
+        "tileGrass_roadCornerLR",
+        "tileGrass_roadEast",
+        "tileGrass_roadTransitionE",
+        "tileSand_roadSplitS",
+        "tileSand_roadEast",
+        "tileSand_roadEast",
+        "tileSand_roadEast",
+        "tileSand_roadCornerLL",
+        "tileSand1",
+        "tileSand2",
+        "tileSand1"
+      ],
+      [
+        "tileGrass1",
+        "tileGrass2",
+        "tileGrass_roadNorth",
+        "tileGrass1",
+        "tileGrass_roadNorth",
+        "tileGrass2",
+        "tileGrass_transitionE",
+        "tileSand_roadNorth",
+        "tileSand1",
+        "tileSand2",
+        "tileSand1",
+        "tileSand_roadNorth",
+        "tileSand2",
+        "tileSand1",
+        "tileSand2"
+      ],
+      [
+        "tileGrass_roadEast",
+        "tileGrass_roadEast",
+        "tileGrass_roadCrossingRound",
+        "tileGrass_roadEast",
+        "tileGrass_roadCornerUL",
+        "tileGrass1",
+        "tileGrass_transitionE",
+        "tileSand_roadCornerUR",
+        "tileSand_roadCornerLL",
+        "tileSand1",
+        "tileSand2",
+        "tileSand_roadNorth",
+        "tileSand2",
+        "tileSand1",
+        "tileSand2"
+      ],
+      [
+        "tileGrass1",
+        "tileGrass2",
+        "tileGrass_roadNorth",
+        "tileGrass1",
+        "tileGrass2",
+        "tileGrass2",
+        "tileGrass_transitionE",
+        "tileSand1",
+        "tileSand_roadNorth",
+        "tileSand2",
+        "tileSand1",
+        "tileSand_roadNorth",
+        "tileSand2",
+        "tileSand1",
+        "tileSand1"
+      ],
+      [
+        "tileGrass2",
+        "tileGrass1",
+        "tileGrass_roadCornerUR",
+        "tileGrass_roadSplitS",
+        "tileGrass_roadEast",
+        "tileGrass_roadEast",
+        "tileGrass_roadTransitionE_dirt",
+        "tileSand_roadEast",
+        "tileSand_roadCrossing",
+        "tileSand_roadEast",
+        "tileSand_roadCornerLL",
+        "tileSand_roadNorth",
+        "tileSand1",
+        "tileSand2",
+        "tileSand1"
+      ],
+      [
+        "tileGrass2",
+        "tileGrass1",
+        "tileGrass2",
+        "tileGrass_roadNorth",
+        "tileGrass2",
+        "tileGrass1",
+        "tileGrass_transitionE",
+        "tileSand1",
+        "tileSand_roadNorth",
+        "tileSand1",
+        "tileSand_roadNorth",
+        "tileSand_roadNorth",
+        "tileSand1",
+        "tileSand2",
+        "tileSand1"
+      ],
+      [
+        "tileGrass_roadEast",
+        "tileGrass_roadEast",
+        "tileGrass_roadEast",
+        "tileGrass_roadCornerUL",
+        "tileGrass1",
+        "tileGrass2",
+        "tileGrass_transitionE",
+        "tileSand1",
+        "tileSand_roadNorth",
+        "tileSand1",
+        "tileSand_roadCornerUR",
+        "tileSand_roadCrossing",
+        "tileSand_roadEast",
+        "tileSand_roadEast",
+        "tileSand_roadEast"
+      ],
+      [
+        "tileGrass2",
+        "tileGrass1",
+        "tileGrass2",
+        "tileGrass2",
+        "tileGrass1",
+        "tileGrass2",
+        "tileGrass_transitionE",
+        "tileSand1",
+        "tileSand_roadNorth",
+        "tileSand1",
+        "tileSand2",
+        "tileSand_roadNorth",
+        "tileSand1",
+        "tileSand2",
+        "tileSand1"
+      ]
+    ],
+    "obstacle": [
+      {
+        "name": "tree1",
+        "path": "treeGreen_large",
+        "pos": [
+          [
+            100,
+            100,
+            10
+          ],
+          [
+            120,
+            300,
+            20
+          ],
+          [
+            300,
+            20,
+            -30
+          ]
+        ]
+      },
+      {
+        "name": "tree2",
+        "path": "treeGreen_small",
+        "pos": []
+      },
+      {
+        "name": "tree3",
+        "path": "treeBrown_large",
+        "pos": [
+          [
+            130,
+            10,
+            -10
+          ],
+          [
+            220,
+            300,
+            90
+          ],
+          [
+            400,
+            20,
+            20
+          ]
+        ]
+      },
+      {
+        "name": "tree4",
+        "path": "treeBrown_small",
+        "pos": []
+      },
+      {
+        "name": "wood1",
+        "path": "crateWood",
+        "pos": []
+      },
+      {
+        "name": "wood2",
+        "path": "crateWood_size",
+        "pos": []
+      },
+      {
+        "name": "fence1",
+        "path": "fence_red",
+        "pos": []
+      },
+      {
+        "name": "fence2",
+        "path": "fence_yellow",
+        "pos": []
+      }
+    ],
+    "tank": [
+      {
+        "name": "tank1",
+        "image": "tank_blue",
+        "pos": [
+          100,
+          100
+        ]
+      },
+      {
+        "name": "tank2",
+        "image": "tank_red",
+        "pos": [
+          800,
+          400
+        ]
+      }
+    ]
+  }
+}
