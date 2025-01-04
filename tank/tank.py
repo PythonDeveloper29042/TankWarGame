@@ -9,6 +9,8 @@
 import pygame
 from math import sin, cos, tan, pi
 
+import pymunk
+
 
 class Tank(pygame.sprite.Sprite):
     def __init__(self, image: str, pos: tuple):
@@ -20,6 +22,7 @@ class Tank(pygame.sprite.Sprite):
         self.image_origin = pygame.image.load(image).convert_alpha()
         self.image = self.image_origin.copy()
         self.rect = self.image.get_rect()
+        self.pos = pos
         self.rect.center = pos
         self.direction = 0
         # Boolean flags to check if the tank has turned left or right
@@ -30,6 +33,12 @@ class Tank(pygame.sprite.Sprite):
         self.move_backward = False
         self.clock = pygame.time.Clock()
         self.speed = 2
+        # Set the tank
+        self.body = pymunk.Body(1, 1, body_type=pymunk.Body.DYNAMIC)
+        self.body.position = self.pos
+        self.shape = pymunk.Poly.create_box(self.body, (self.rect.width, self.rect.height))
+        self.shape.elasticity = 0.5
+        self.shape.collision_type = 1
 
     def shoot(self):
         """This method is used to shoot the tank."""
@@ -47,14 +56,16 @@ class Tank(pygame.sprite.Sprite):
         # Calculate the speed of the tank in the x and y directions
         x_speed = self.speed * sin(self.direction / 180 * pi)
         y_speed = self.speed * cos(self.direction / 180 * pi)
+        pos_x, pos_y = self.body.position  # Get the position of the tank
         # Move the tank forward
         if direction == 1:
-            self.rect.centerx += x_speed
-            self.rect.centery += y_speed
+            pos_x += x_speed
+            pos_y += y_speed
         # Move the tank backward
         if direction == 2:
-            self.rect.centerx -= x_speed
-            self.rect.centery -= y_speed
+            pos_x -= x_speed
+            pos_y -= y_speed
+        self.body.position = (pos_x, pos_y)  # Set the new position of the tank
 
     def rotate(self, direction: int):
         """ This method is used to rotate the tank to a specific direction.
@@ -96,3 +107,4 @@ class Tank(pygame.sprite.Sprite):
             self.move(1)    
         if self.move_backward: 
             self.move(2)
+        self.rect.center = self.body.position  # Set the center of the tank to the position of the tank

@@ -42,34 +42,51 @@ class TankMain:
         self.obstacle_group = pygame.sprite.Group()  # Create a group for the obstacles.
         self.tank_group = pygame.sprite.Group()  # Create a group for the tanks.
 
-        self.create_obstacle()  # Create the obstacles in the game.
-        self.create_tank()  # Create the tank in the game.
+
 
         self.clock = (
             pygame.time.Clock()
         )  # Create a clock object for the game to control the frame rate.
+
+        # Create a space object for the physics engine.
+        self.space = pymunk.Space()
+        self.space.gravity = (0, 0)
+        self.create_obstacle()  # Create the obstacles in the game.
+        self.create_tank()  # Create the tank in the game.
+
+        self.fps = 60  # Set the frame rate of the game.
+
+        # Create the boundaries of the game.
+        line_pos = [[(0, 0), (918, 0)], [(918, 0), (918, 515)], [(918, 515), (0, 515)], [(0, 515), (0, 0)]]
+        for pos in line_pos:
+            line_body = pymunk.Body(10, 10, body_type=pymunk.Body.STATIC)
+            line_shape = pymunk.Segment(line_body, pos[0], pos[1], radius=30)
+            line_shape.elasticity = 1.0
+            self.space.add(line_body, line_shape)
 
     def create_obstacle(self):
         """This function creates the obstacles in the game."""
         for obs in self.obstacle_data:
             for p in obs["pos"]:
                 temp = Obstacle(
-                    f"./assets/images/Default size/{obs["path"]}.png", p[-1], p[:2]
+                    f"./assets/images/Default size/{obs['path']}.png", p[-1], p[:2]
                 )
                 self.obstacle_group.add(temp)
 
     def create_tank(self):
         """This function creates the tank in the game."""
         self.tank1 = Tank(
-            f"./assets/images/Default size/{self.tank_data[0]["image"]}.png",
+            f"./assets/images/Default size/{self.tank_data[0]['image']}.png",
             self.tank_data[0]["pos"],
         )
         self.tank2 = Tank(
-            f"./assets/images/Default size/{self.tank_data[1]["image"]}.png",
+            f"./assets/images/Default size/{self.tank_data[1]['image']}.png",
             self.tank_data[1]["pos"],
         )
         self.tank_group.add(self.tank1)
         self.tank_group.add(self.tank2)
+        self.space.add(self.tank1.body, self.tank1.shape)
+        self.space.add(self.tank2.body, self.tank2.shape)
 
     def event_handle(self):
         """This function handles the events in the game."""
@@ -149,8 +166,9 @@ class TankMain:
 
     def show(self):
         """This function displays the game on the screen."""
-        self.clock.tick(60)
         while self.running:
+            self.clock.tick(self.fps)
+            self.space.step(1 / self.fps)
             self.event_handle()
             self.map_obj.show()
             self.obstacle_group.draw(self.screen)
