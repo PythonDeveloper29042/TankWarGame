@@ -10,6 +10,7 @@
 
 import pygame
 from pygame.locals import *
+import pymunk
 
 
 class Obstacle(pygame.sprite.Sprite):
@@ -32,6 +33,13 @@ class Obstacle(pygame.sprite.Sprite):
         # Set the position of the obstacle.
         self.pos = pos
         self.rect.center = pos
+        # Set the physical effects of the obstacle.
+        self.body = pymunk.Body(1, 1, body_type=pymunk.Body.STATIC)
+        self.body.position = self.pos
+        self.body.angle = self.direction  # Angle of the obstacle.
+        self.shape = pymunk.Poly.create_box(self.body, (self.rect.width, self.rect.height))
+        self.shape.elasticity = 1.0
+        self.shape.collision_type = 2
 
     def show(self, screen: pygame.Surface):
         """Shows the obstacle on the screen.

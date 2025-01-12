@@ -72,6 +72,7 @@ class TankMain:
                     f"./assets/images/Default size/{obs['path']}.png", p[-1], p[:2]
                 )
                 self.obstacle_group.add(temp)
+                self.space.add(temp.body, temp.shape)
 
     def create_tank(self):
         """This function creates the tank in the game."""
