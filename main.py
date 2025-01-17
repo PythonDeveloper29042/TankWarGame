@@ -25,6 +25,8 @@ from map.background import Map
 from obstacle.obstacle import Obstacle
 from tank.tank import Tank
 from level import *
+from bullets.bullet import Bullet
+from math import sin, cos, pi as π
 
 
 class TankMain:
@@ -35,14 +37,14 @@ class TankMain:
         map_data = read_map("./config.json")  # Read the map data from the config file.
         self.obstacle_data = read_obstacle("./config.json")
         self.tank_data = read_tank("./config.json")
-
+        self.bulletRed_1 = pygame.image.load("./assets/images/Default size/bulletRed1.png").convert_alpha()
+        self.bulletBlue_1 = pygame.image.load("./assets/images/Default size/bulletBlue1.png").convert_alpha()
         self.map_obj = Map(
             map_data, self.screen
         )  # Create an instance of the Map class.
         self.obstacle_group = pygame.sprite.Group()  # Create a group for the obstacles.
         self.tank_group = pygame.sprite.Group()  # Create a group for the tanks.
-
-
+        self.bullet_group = pygame.sprite.Group()  # Create a group for the bullets.
 
         self.clock = (
             pygame.time.Clock()
@@ -89,6 +91,37 @@ class TankMain:
         self.space.add(self.tank1.body, self.tank1.shape)
         self.space.add(self.tank2.body, self.tank2.shape)
 
+    def create_bullets(self, type_):
+        """
+        This function creates the bullets in the game.
+        Args:
+            type_ (str): The type of the bullet.         
+        """
+        if type_ == 1:
+            center_x = self.tank1.rect.centerx  # Get the center x of the tank.
+            center_y = self.tank1.rect.centery  # Get the center y of the tank.
+            direction = self.tank1.direction  # Get the direction of the tank.
+            length = self.tank1.rect.width / 2  # Get the length of the tank.
+            x_length = length * sin(direction / 180 * π)  # Calculate the x length of the tank.
+            y_length = length * cos(direction / 180 * π)  # Calculate the y length of the tank.
+            pos_x = center_x + x_length  # Calculate the x position of the bullet.
+            pos_y = center_y + y_length  # Calculate the y position of the bullet.
+            bullet_ = Bullet(self.bulletBlue_1, self.tank1.direction, (pos_x, pos_y))  # Create an instance of the Bullet class.
+            self.space.add(bullet_.body, bullet_.shape)  # Add the bullet to the space.
+            self.bullet_group.add(bullet_)  # Add the bullet to the bullet group.
+        if type_ == 2:
+            center_x = self.tank2.rect.centerx  # Get the center x of the tank.
+            center_y = self.tank2.rect.centery  # Get the center y of the tank.
+            direction = self.tank2.direction  # Get the direction of the tank.
+            length = self.tank2.rect.width / 2  # Get the length of the tank.
+            x_length = length * sin(direction / 180 * π)  # Calculate the x length of the tank.
+            y_length = length * cos(direction / 180 * π)  # Calculate the y length of the tank.
+            pos_x = center_x + x_length  # Calculate the x position of the bullet.
+            pos_y = center_y + y_length  # Calculate the y position of the bullet.
+            bullet_ = Bullet(self.bulletRed_1, self.tank2.direction, (pos_x, pos_y))  # Create an instance of the Bullet class.
+            self.bullet_group.add(bullet_)  # Add the bullet to the bullet group.
+            self.space.add(bullet_.body, bullet_.shape)  # Add the bullet to the space.
+
     def event_handle(self):
         """This function handles the events in the game."""
         for e in pygame.event.get():  # Get the events from the pygame module.
@@ -131,6 +164,12 @@ class TankMain:
                     e.key == K_DOWN
                 ):  # If the key pressed is 'DOWN', then set the move_backward flag of tank2 to True.
                     self.tank2.move_backward = True
+                # Shoot bullet event handle
+                if e.key == K_SPACE:
+                    self.create_bullets(1)
+                if e.key == K_p:
+                    self.create_bullets(2)
+
             if e.type == KEYUP:  # If the event is KEYUP, then check the key released.
                 if (
                     e.key == K_a
@@ -175,6 +214,8 @@ class TankMain:
             self.obstacle_group.draw(self.screen)
             self.tank_group.draw(self.screen)
             self.tank_group.update()
+            self.bullet_group.draw(self.screen)
+            self.bullet_group.update()  # Update the bullets in the game.
             pygame.display.update()
 
 

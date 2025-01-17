@@ -1,14 +1,15 @@
-
 """
 @description: This module contains the Bullet class.
 """
+import pymunk
 from pygame.surface import Surface  # Import the Surface class from the pygame module.
 from pygame.sprite import Sprite  # Import the Sprite class from the pygame module.
+from math import sin, cos, pi as π  # Import the sin, cos, and pi functions from the math module.
 
 
 # Create the Bullet class.
 class Bullet(Sprite):
-    def __init__(self, image: Surface, direction: int):
+    def __init__(self, image: Surface, direction: int, pos: tuple):
         """
         Initializes the Bullet class.
         Args:
@@ -18,9 +19,25 @@ class Bullet(Sprite):
         super().__init__()
         self.image = image  # Set the image of the bullet.
         self.rect = self.image.get_rect()  # Get the rectangle of the image.
+        self.rect.center = pos  # Set the center of the rectangle to the position.
         self.is_moving = True  # Set the is_moving attribute to True.
-        self.direction = 0  # Set the direction of the bullet to 0.
-        self.speed = 10  # Set the speed of the bullet to 10
+        self.direction = direction  # Set the direction of the bullet.
+        self.speed = 500  # Set the speed of the bullet to 500.
+
+        # Add physical effects
+        self.body = pymunk.Body(1, 1, body_type=pymunk.Body.DYNAMIC)  # Create a body for the bullet.
+        self.body.angle = self.direction  # Set the angle of the body to the direction.
+        self.body.position = pos  # Set the position of the body to the position.
+
+        # Calculate the x and y speed of the bullet.
+        x_speed = self.speed * sin(self.direction / 180 * π)  # Calculate the x speed of the bullet.
+        y_speed = self.speed * cos(self.direction / 180 * π)  # Calculate the y speed of the bullet.
+        self.body.elasticity = 1.0  # Set the elasticity of the body to 1.0.
+        self.body.velocity = (x_speed, y_speed)  # Set the velocity of the body.
+
+        self.shape = pymunk.Poly.create_box(self.body, (self.rect.width, self.rect.height))  # Create a shape for the bullet.
+        self.shape.elasticity = 1.0
+        self.shape.collision_type = 3
 
     def move(self):
         """This method moves the bullet."""
@@ -36,4 +53,4 @@ class Bullet(Sprite):
             *args: Variable length argument list.
             **kwargs: Arbitrary keyword arguments.
         """
-        pass
+        self.rect.center = self.body.position
