@@ -33,6 +33,7 @@ class TankMain:
     def __init__(self):
         pygame.init()  # Initialize the pygame module.
         self.screen = pygame.display.set_mode((918, 515))  # Set the screen size.
+        self.last_camp = 0  # Set the last camp time to 0.
         self.running = True  # Set the running flag to True.
         map_data = read_map("./config.json")  # Read the map data from the config file.
         self.obstacle_data = read_obstacle("./config.json")
@@ -55,7 +56,9 @@ class TankMain:
         self.space.gravity = (0, 0)
         self.create_obstacle()  # Create the obstacles in the game.
         self.create_tank()  # Create the tank in the game.
-
+        self.space.add_collision_handler(3, 2).post_solve = self.collide_bullet_obs_line  # Add a collision handler for the bullet and the obstacle.
+        self.space.add_collision_handler(3, 4).post_solve = self.collide_bullet_obs_line  # Add a collision handler for the bullet and the obstacle.
+        self.space.add_collision_handler(3, 1).post_solve = self.collide_bullet_tank  # Add a collision handler for the bullet and the tank.
         self.fps = 60  # Set the frame rate of the game.
 
         # Create the boundaries of the game.
@@ -91,17 +94,23 @@ class TankMain:
         self.space.add(self.tank1.body, self.tank1.shape)
         self.space.add(self.tank2.body, self.tank2.shape)
 
-    def create_bullets(self, type_):
+    def create_bullets(self, type_: str):
         """
         This function creates the bullets in the game.
         Args:
             type_ (str): The type of the bullet.         
         """
+        current_time = pygame.time.get_ticks()  # Get the current time of the game.
+        if current_time - self.last_camp < 1000:  # If the time difference is greater than 500 milliseconds.
+            return
+        if len(self.bullet_group) >= 2:
+            return
+        self.last_camp = current_time  # Set the last camp time to the current time.
         if type_ == 1:
             center_x = self.tank1.rect.centerx  # Get the center x of the tank.
             center_y = self.tank1.rect.centery  # Get the center y of the tank.
             direction = self.tank1.direction  # Get the direction of the tank.
-            length = self.tank1.rect.width / 2  # Get the length of the tank.
+            length = self.tank1.rect.width / 2 + 10  # Get the length of the tank.
             x_length = length * sin(direction / 180 * π)  # Calculate the x length of the tank.
             y_length = length * cos(direction / 180 * π)  # Calculate the y length of the tank.
             pos_x = center_x + x_length  # Calculate the x position of the bullet.
@@ -113,7 +122,7 @@ class TankMain:
             center_x = self.tank2.rect.centerx  # Get the center x of the tank.
             center_y = self.tank2.rect.centery  # Get the center y of the tank.
             direction = self.tank2.direction  # Get the direction of the tank.
-            length = self.tank2.rect.width / 2  # Get the length of the tank.
+            length = self.tank2.rect.width / 2 + 10  # Get the length of the tank.
             x_length = length * sin(direction / 180 * π)  # Calculate the x length of the tank.
             y_length = length * cos(direction / 180 * π)  # Calculate the y length of the tank.
             pos_x = center_x + x_length  # Calculate the x position of the bullet.
@@ -203,6 +212,42 @@ class TankMain:
                     e.key == K_DOWN
                 ):  # If the key released is 'DOWN', then set the move_backward flag of tank2 to False.
                     self.tank2.move_backward = False
+
+    def collide_bullet_obs_line(self, arbiter: pymunk.Arbiter, space: pymunk.Space, data: dict):
+        """This function handles the collision between the bullet and the obstacle.
+        Args:
+            arbiter (pymunk.Arbiter): The arbiter object.
+            space (pymunk.Space): The space object.
+            data (dict): The data dictionary.
+        """
+        bullet, others = arbiter.shapes  # Get the bullet
+        for blt in self.bullet_group:  # Loop through the bullet group.
+            if blt.shape == bullet:  # If the bullet is found.
+                blt.count += 1  # Increment the count of the bullet.
+                print(id(blt), blt.count)
+                if blt.count >= 5:  # If the count of the bullet is greater than or equal to 5
+                    blt.kill()  # Kill the bullet.
+                    space.remove(blt.body, blt.shape)  # Remove the bullet from the space.
+                break
+
+    def collide_bullet_tank(self, arbiter: pymunk.Arbiter, space: pymunk.Space, data: dict):
+        """This function handles the collision between the bullet and the tank.
+        Args:
+            arbiter (pymunk.Arbiter): The arbiter object.
+            space (pymunk.Space): The space object.
+            data (dict): The data dictionary.
+        """
+        bullet, tank = arbiter.shapes
+        for blt in self.bullet_group:
+            if blt.shape == bullet:
+                self.bullet_group.remove(blt)
+                self.space.remove(blt.body, blt.shape)
+                break
+        
+        for tnk in self.tank_group:
+            if tnk.shape == tank:
+                tnk.kill()
+                self.space.remove(tnk.body, tnk.shape)
 
     def show(self):
         """This function displays the game on the screen."""

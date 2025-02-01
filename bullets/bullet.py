@@ -2,6 +2,7 @@
 @description: This module contains the Bullet class.
 """
 import pymunk
+import pygame  # Import the pygame module.
 from pygame.surface import Surface  # Import the Surface class from the pygame module.
 from pygame.sprite import Sprite  # Import the Sprite class from the pygame module.
 from math import sin, cos, pi as π  # Import the sin, cos, and pi functions from the math module.
@@ -17,6 +18,8 @@ class Bullet(Sprite):
             direction (int): The direction of the bullet.
         """
         super().__init__()
+        self.count = 0  # Set the count attribute to 0.
+        self.image_origin = image  # Set the original image of the bullet.
         self.image = image  # Set the image of the bullet.
         self.rect = self.image.get_rect()  # Get the rectangle of the image.
         self.rect.center = pos  # Set the center of the rectangle to the position.
@@ -46,6 +49,14 @@ class Bullet(Sprite):
     def destroy(self):
         """This method destroys the bullet."""
         pass
+    
+    def rotate(self):
+        """This method rotates the bullet."""
+        old_center = self.rect.center  # Get the center of the rectangle.
+        self.direction %= 360  # Get the direction of the bullet.
+        self.image = pygame.transform.rotate(self.image_origin, self.direction)  # Rotate the image of the bullet.
+        self.rect = self.image.get_rect()  # Get the rectangle of the image.
+        self.rect.center = old_center  # Set the center of the rectangle to the old center.
 
     def update(self, *args, **kwargs):
         """This method updates the bullet.
@@ -54,3 +65,5 @@ class Bullet(Sprite):
             **kwargs: Arbitrary keyword arguments.
         """
         self.rect.center = self.body.position
+        self.direction = self.body.angle
+        self.rotate()
