@@ -1,5 +1,6 @@
 # Tank Game
 
+#### Note: This game is still in development. Some features may not function as intended or may fail to execute properly. It is recommended to wait until the project is complete for the best experience.
 This project is a simple tank game built using Python and Pygame. The game involves controlling tanks on a map, with the ability to load different tank and map configurations from JSON files.
 
 ## Requirements

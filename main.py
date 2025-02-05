@@ -15,7 +15,8 @@
 import pygame  # Import the pygame module for the game engine.
 import pymunk  # Import the pymunk module for the physics engine.
 from pygame.locals import *  # Import the pygame.locals module for the constants of the game.
-import tkinter  # Import the tkinter module for the message box.
+import tkinter  # Import the tkinter module for the GUI.
+from tkinter import messagebox  # Import the messagebox module from tkinter for the message box.
 # from tank.tank import Tank
 # from obstacle import Obstacle
 # from weapon import Weapon
@@ -32,6 +33,7 @@ from math import sin, cos, pi as π
 class TankMain:
     def __init__(self):
         pygame.init()  # Initialize the pygame module.
+        self.load_music()  # Load the music.
         self.winner = None  # Initialize the winner to None.
         self.screen = pygame.display.set_mode((918, 515))  # Set the screen size.
         self.last_camp = 0  # Set the last camp time to 0.
@@ -73,18 +75,18 @@ class TankMain:
     def load_music(self):
         """This function loads the music in the game."""
         pygame.mixer.init()
-        self.bgmusic = pygame.mixer.Sound("./assets/music/bgmusic.mp3")
+        self.bgmusic = pygame.mixer.Sound("./assets/sounds/bgmusic.mp3")
         self.bgmusic.set_volume(0.5)
         self.bgmusic.play(-1)
 
-        self.boom_music = pygame.mixer.Sound("./assets/music/boommusic.mp3")
-        self.game_scs_music = pygame.mixer.Sound("./assets/music/gamesuccess.mp3")
-        self.reflect_music = pygame.mixer.Sound("./assets/music/reflectmusic.mp3")
-        self.shoot_music = pygame.mixer.Sound("./assets/music/shootmusic.mp3")
-        self.move_music_b1 = pygame.mixer.Sound("./assets/music/tankmove.mp3")
-        self.move_music_b2 = pygame.mixer.Sound("./assets/music/tankmove.mp3")
-        self.move_music_r1 = pygame.mixer.Sound("./assets/music/tankmove.mp3")
-        self.move_music_r2 = pygame.mixer.Sound("./assets/music/tankmove.mp3")
+        self.boom_music = pygame.mixer.Sound("./assets/sounds/boommusic.mp3")
+        self.game_scs_music = pygame.mixer.Sound("./assets/sounds/gamesuccess.mp3")
+        self.reflect_music = pygame.mixer.Sound("./assets/sounds/reflectmusic.mp3")
+        self.shoot_music = pygame.mixer.Sound("./assets/sounds/shootmusic.mp3")
+        self.move_music_b1 = pygame.mixer.Sound("./assets/sounds/tankmove.mp3")
+        self.move_music_b2 = pygame.mixer.Sound("./assets/sounds/tankmove.mp3")
+        self.move_music_r1 = pygame.mixer.Sound("./assets/sounds/tankmove.mp3")
+        self.move_music_r2 = pygame.mixer.Sound("./assets/sounds/tankmove.mp3")
 
     def create_obstacle(self):
         """This function creates the obstacles in the game."""
@@ -124,6 +126,7 @@ class TankMain:
             return
         if len(self.bullet_group) >= 2:
             return
+        self.shoot_music.play()
         self.last_camp = current_time  # Set the last camp time to the current time.
         if type_ == 1:
             center_x = self.tank1.rect.centerx  # Get the center x of the tank.
@@ -179,18 +182,22 @@ class TankMain:
                 if (
                     e.key == K_w    
                 ):  # If the key pressed is 'w', then set the move_forward flag of tank1 to True.
+                    self.move_music_b1.play(-1)  #
                     self.tank1.move_forward = True
                 if (
                     e.key == K_s
                 ):  # If the key pressed is 's', then set the move_backward flag of tank1 to True.
+                    self.move_music_b2.play(-1)  #
                     self.tank1.move_backward = True
                 if (
                     e.key == K_UP
                 ):  # If the key pressed is 'UP', then set the move_forward flag of tank2 to True.
+                    self.move_music_r1.play(-1)  #
                     self.tank2.move_forward = True
                 if (
                     e.key == K_DOWN
                 ):  # If the key pressed is 'DOWN', then set the move_backward flag of tank2 to True.
+                    self.move_music_r2.play(-1)  #
                     self.tank2.move_backward = True
                 # Shoot bullet event handle
                 if e.key == K_SPACE:
@@ -218,18 +225,22 @@ class TankMain:
                 if (
                     e.key == K_w
                 ):  # If the key released is 'w', then set the move_forward flag of tank1 to False.
+                    self.move_music_b1.stop()
                     self.tank1.move_forward = False
                 if (
                     e.key == K_s
                 ):  # If the key released is 's', then set the move_backward flag of tank1 to False.
+                    self.move_music_b2.stop()
                     self.tank1.move_backward = False
                 if (
                     e.key == K_UP
                 ):  # If the key released is 'UP', then set the move_forward flag of tank2 to False.
+                    self.move_music_r1.stop()
                     self.tank2.move_forward = False
                 if (
                     e.key == K_DOWN
                 ):  # If the key released is 'DOWN', then set the move_backward flag of tank2 to False.
+                    self.move_music_r2.stop()
                     self.tank2.move_backward = False
 
     def collide_bullet_obs_line(self, arbiter: pymunk.Arbiter, space: pymunk.Space, data: dict):
@@ -239,6 +250,7 @@ class TankMain:
             space (pymunk.Space): The space object.
             data (dict): The data dictionary.
         """
+        self.reflect_music.play()
         bullet, others = arbiter.shapes  # Get the bullet
         for blt in self.bullet_group:  # Loop through the bullet group.
             if blt.shape == bullet:  # If the bullet is found.
@@ -292,7 +304,7 @@ class TankMain:
         """This function displays the success message of the game."""
         root = tkinter.Tk()  # Create a tkinter window.
         root.withdraw()  # Hide the tkinter window.
-        tkinter.messagebox.showinfo("Congratulations", "{self.winner} win!")  # Show the success message.
+        messagebox.showinfo("Congratulations", f"{self.winner} win!")  # Show the success message.
         root.destroy()  # Destroy the tkinter window.
 
 

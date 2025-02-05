@@ -19,6 +19,7 @@ class Tank(pygame.sprite.Sprite):
             image (str): The path of the image of the tank.
         """
         super().__init__()
+        self.name = name
         self.image_origin = pygame.image.load(image).convert_alpha()
         self.image = self.image_origin.copy()
         self.rect = self.image.get_rect()
