@@ -4,15 +4,21 @@ This project is a simple tank game built using Python and Pygame. The game invol
 
 ## Requirements
 
-To run this project, you need to have Python installed along with the following dependencies:
+To run this project, you need to have Python 3.8+ installed along with the following dependencies:
 
 - `pygame~=2.6.1`
 - `pymunk~=6.9.0`
 
 You can install the required dependencies using the following command:
 
-```
+In Windows:
+```batch
 pip install -r requirements.txt
+```
+
+In macOS/Linux:
+```sh
+pip3 install -r requirements.txt
 ```
 
 ## Explanation of the files:
@@ -37,7 +43,72 @@ pip install -r requirements.txt
 ---
 
 ## Running the game
-...
+### Setting up the environment
+To run the game, you must confirm that these are installed:
+- Python 3.8+
+- Pygame 2.0.1
+- Pymunk 6.9.0
+- Git
+
+If not, you can install them using the following commands:  
+#### Install Python on Windows (via WinGet)
+```batch
+winget install --id=Python.Python --source=msstore
+```  
+#### Install Python on macOS (via Homebrew)
+```sh
+brew install python
+```
+Make sure you have Homebrew installed. If not, you can install it on this site: https://brew.sh/  
+
+#### Note: You do not need to install Python on Linux, as it comes pre-installed.
+
+### Installing the required dependencies
+We already discussed the installation of the required dependencies in the Requirements section, check [here](#requirements) for more information.
+
+### Install Git
+#### Install Git on Windows (via WinGet)
+In Windows, you can install Git using the Windows Package Manager. Run the following command in the Command Prompt:
+```cmd
+winget install --id=Git.Git --source=msstore
+```
+This will install Git for Windows using the Windows Package Manager.
+
+#### Install Git on macOS 
+In macOS, it's best to use the Apple-provided Git, which is part of the Xcode Command Line Tools. You can install it by running the following command:
+```sh
+xcode-select --install
+```
+This will install the Xcode Command Line Tools, which includes Git.
+
+#### Install Git on Linux
+In Linux, you can install Git using the package manager of your distribution. For example, in Ubuntu, you can install Git by running the following command:
+```sh
+sudo apt-get install git
+```
+
+### Cloning the repository
+After you install Python and Git, it's time to clone the repository! You can do this by running the following command:
+```sh
+git clone 
+```
+
+### Running the game
+After all of these steps, you're all set! Now it's time to run the game! You can do this by running the following command:  
+
+In Windows:
+```batch
+cd C:\path\to\the\repository
+python main.py
+```
+Make sure to replace `C:\path\to\the\repository` with the actual path to the repository on your computer.  
+
+In macOS/Linux:
+```sh
+cd /path/to/the/repository
+python3 main.py
+```
+Make sure to replace `/path/to/the/repository` with the actual path to the repository on your computer.
 
 ---
 

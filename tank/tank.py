@@ -13,7 +13,7 @@ import pymunk
 
 
 class Tank(pygame.sprite.Sprite):
-    def __init__(self, image: str, pos: tuple):
+    def __init__(self, name: str, image: str, pos: tuple):
         """This method is used to initialize the Tank object.
         Args:
             image (str): The path of the image of the tank.

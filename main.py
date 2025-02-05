@@ -15,7 +15,7 @@
 import pygame  # Import the pygame module for the game engine.
 import pymunk  # Import the pymunk module for the physics engine.
 from pygame.locals import *  # Import the pygame.locals module for the constants of the game.
-
+import tkinter  # Import the tkinter module for the message box.
 # from tank.tank import Tank
 # from obstacle import Obstacle
 # from weapon import Weapon
@@ -32,6 +32,7 @@ from math import sin, cos, pi as π
 class TankMain:
     def __init__(self):
         pygame.init()  # Initialize the pygame module.
+        self.winner = None  # Initialize the winner to None.
         self.screen = pygame.display.set_mode((918, 515))  # Set the screen size.
         self.last_camp = 0  # Set the last camp time to 0.
         self.running = True  # Set the running flag to True.
@@ -69,6 +70,22 @@ class TankMain:
             line_shape.elasticity = 1.0
             self.space.add(line_body, line_shape)
 
+    def load_music(self):
+        """This function loads the music in the game."""
+        pygame.mixer.init()
+        self.bgmusic = pygame.mixer.Sound("./assets/music/bgmusic.mp3")
+        self.bgmusic.set_volume(0.5)
+        self.bgmusic.play(-1)
+
+        self.boom_music = pygame.mixer.Sound("./assets/music/boommusic.mp3")
+        self.game_scs_music = pygame.mixer.Sound("./assets/music/gamesuccess.mp3")
+        self.reflect_music = pygame.mixer.Sound("./assets/music/reflectmusic.mp3")
+        self.shoot_music = pygame.mixer.Sound("./assets/music/shootmusic.mp3")
+        self.move_music_b1 = pygame.mixer.Sound("./assets/music/tankmove.mp3")
+        self.move_music_b2 = pygame.mixer.Sound("./assets/music/tankmove.mp3")
+        self.move_music_r1 = pygame.mixer.Sound("./assets/music/tankmove.mp3")
+        self.move_music_r2 = pygame.mixer.Sound("./assets/music/tankmove.mp3")
+
     def create_obstacle(self):
         """This function creates the obstacles in the game."""
         for obs in self.obstacle_data:
@@ -82,10 +99,12 @@ class TankMain:
     def create_tank(self):
         """This function creates the tank in the game."""
         self.tank1 = Tank(
+            "Blue",
             f"./assets/images/Default size/{self.tank_data[0]['image']}.png",
             self.tank_data[0]["pos"],
         )
         self.tank2 = Tank(
+            "Red",
             f"./assets/images/Default size/{self.tank_data[1]['image']}.png",
             self.tank_data[1]["pos"],
         )
@@ -246,8 +265,14 @@ class TankMain:
         
         for tnk in self.tank_group:
             if tnk.shape == tank:
+                if tnk.name == "Blue":  # If the tank is blue, then set the winner to red.
+                    self.winner = "Red"
+                if tnk.name == "Red":  # If the tank is red, then set the winner to blue.
+                    self.winner = "Blue"
                 tnk.kill()
                 self.space.remove(tnk.body, tnk.shape)
+                self.game_success()
+                break
 
     def show(self):
         """This function displays the game on the screen."""
@@ -262,6 +287,13 @@ class TankMain:
             self.bullet_group.draw(self.screen)
             self.bullet_group.update()  # Update the bullets in the game.
             pygame.display.update()
+
+    def game_success(self):
+        """This function displays the success message of the game."""
+        root = tkinter.Tk()  # Create a tkinter window.
+        root.withdraw()  # Hide the tkinter window.
+        tkinter.messagebox.showinfo("Congratulations", "{self.winner} win!")  # Show the success message.
+        root.destroy()  # Destroy the tkinter window.
 
 
 def main():
