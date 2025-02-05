@@ -33,6 +33,7 @@ from math import sin, cos, pi as π
 class TankMain:
     def __init__(self):
         pygame.init()  # Initialize the pygame module.
+        pygame.display.set_caption('Tank War Game - Level 1')
         self.load_music()  # Load the music.
         self.winner = None  # Initialize the winner to None.
         self.screen = pygame.display.set_mode((918, 515))  # Set the screen size.
@@ -70,6 +71,7 @@ class TankMain:
             line_body = pymunk.Body(10, 10, body_type=pymunk.Body.STATIC)
             line_shape = pymunk.Segment(line_body, pos[0], pos[1], radius=30)
             line_shape.elasticity = 1.0
+            line_shape.collision_type = 4
             self.space.add(line_body, line_shape)
 
     def load_music(self):
@@ -256,7 +258,7 @@ class TankMain:
             if blt.shape == bullet:  # If the bullet is found.
                 blt.count += 1  # Increment the count of the bullet.
                 print(id(blt), blt.count)
-                if blt.count >= 5:  # If the count of the bullet is greater than or equal to 5
+                if blt.count >= 1:  # If the count of the bullet is greater than or equal to 1
                     blt.kill()  # Kill the bullet.
                     space.remove(blt.body, blt.shape)  # Remove the bullet from the space.
                 break

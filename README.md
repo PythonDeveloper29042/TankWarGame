@@ -3,6 +3,25 @@
 #### Note: This game is still in development. Some features may not function as intended or may fail to execute properly. It is recommended to wait until the project is complete for the best experience.
 This project is a simple tank game built using Python and Pygame. The game involves controlling tanks on a map, with the ability to load different tank and map configurations from JSON files.
 
+---
+
+## Table of Contents
+- [Requirements](#requirements)
+- [Explanation of the files](#explanation-of-the-files)
+- [Running the game](#running-the-game)
+  - [Setting up the environment](#setting-up-the-environment)
+  - [Installing the required dependencies](#installing-the-required-dependencies)
+  - [Install Git](#install-git)
+  - [Cloning the repository](#cloning-the-repository)
+  - [Running the game](#running-the-game-1)
+- [Game Rules](#game-rules)
+- [Levels of the game](#levels-of-the-game)
+- [Inquiry](#inquiry)
+- [License](#license)
+- [Epilogue](#epilogue)
+
+---
+
 ## Requirements
 
 To run this project, you need to have Python 3.8+ installed along with the following dependencies:
@@ -21,6 +40,8 @@ In macOS/Linux:
 ```sh
 pip3 install -r requirements.txt
 ```
+
+---
 
 ## Explanation of the files:
 `background.py` - Contains the `Map` class which is used to draw the background of the game.
@@ -113,4 +134,37 @@ Make sure to replace `/path/to/the/repository` with the actual path to the repos
 
 ---
 
+## Game Rules
+1. This is a **2-player** game, thus there are 2 tanks, **red** and **blue** for each player
+2. When one tank is defeated by the enemy tank by **colliding with the enemy bullet**, the other player wins. For example, if the **red** tank collides with a bullet from the **blue** tank, then the **blue** tank win.
+3. You can shoot bullets using the **space** key for the **blue** tank and the **P** key for the **red** tank.
+4. You can move your tank using the **W** key (move forward) or the **S** key (move backward) for the **blue** tank, and the **arrow-up** key (move forward) or the **arrow-down** (move backward) for the **red** tank.
+5. You can change the direction of your tank using the **A** key (turn left) or the **D** key (turn right) for the **blue** tank, and the **arrow-left** key (turn left) or the **arrow-right** key (turn right) for the **red** tank.
+
+---
+
+## Levels of the game
+There are 4 levels of the game. Each level is harder than the previous one. Here are the levels:   
+**Level 1**: This level contains only obstacles on one side.  
+**Level 2** (not available yet): This level contains obstacles on both sides.  
+**Level 3** (not available yet): Currently not planned, but may be considered in the future.  
+**Level 4 (Boss Level)** (not available yet): Currently not planned, but may be considered in the future.
+
+---
+
+## Inquiry
+If you have any questions or suggestions, feel free to open an issue or contact me at [here](mailto:pythondeveloper.29042@outlook.com).
+
+---
+
+## License
 This project is under the MIT license. See the [LICENSE](LICENSE) file for more details.
+
+---
+
+## Epilogue
+Thank you for reading this README. I hope you enjoy playing the game! If you have any questions or suggestions, feel free to contact me or open an issue. Have fun playing the game!
+
+--- 
+
+**THE END**  
