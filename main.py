@@ -306,7 +306,9 @@ class TankMain:
         """This function displays the success message of the game."""
         root = tkinter.Tk()  # Create a tkinter window.
         root.withdraw()  # Hide the tkinter window.
-        messagebox.showinfo("Congratulations", f"{self.winner} win!")  # Show the success message.
+        result = messagebox.showinfo("Congratulations", f"{self.winner} win!")  # Show the success message.
+        if result:
+            self.running = False
         root.destroy()  # Destroy the tkinter window.
 
 
