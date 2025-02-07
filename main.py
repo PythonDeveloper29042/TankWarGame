@@ -28,6 +28,7 @@ from tank.tank import Tank
 from level import *
 from bullets.bullet import Bullet
 from math import sin, cos, pi as π
+import sys, os
 
 
 class TankMain:
@@ -39,9 +40,9 @@ class TankMain:
         self.screen = pygame.display.set_mode((918, 515))  # Set the screen size.
         self.last_camp = 0  # Set the last camp time to 0.
         self.running = True  # Set the running flag to True.
-        map_data = read_map("./config.json")  # Read the map data from the config file.
-        self.obstacle_data = read_obstacle("./config.json")
-        self.tank_data = read_tank("./config.json")
+        map_data = read_map("assets/config.json")  # Read the map data from the config file.
+        self.obstacle_data = read_obstacle("assets/config.json")
+        self.tank_data = read_tank("assets/config.json")
         self.bulletRed_1 = pygame.image.load("./assets/images/Default size/bulletRed1.png").convert_alpha()
         self.bulletBlue_1 = pygame.image.load("./assets/images/Default size/bulletBlue1.png").convert_alpha()
         self.map_obj = Map(
@@ -314,6 +315,8 @@ class TankMain:
 
 def main():
     """This is the main function of the game."""
+    file_name = os.path.dirname(os.path.realpath(__file__))
+    os.chdir(file_name)
     tank_main = TankMain()  # Create an instance of the TankMain class.
     tank_main.show()  # Call the show method of the TankMain class to display the game.
 

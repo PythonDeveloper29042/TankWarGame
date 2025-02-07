@@ -10,8 +10,8 @@ from level import *
 
 pygame.init()
 screen = pygame.display.set_mode((918, 515))
-images = read_map("../config.json")
-tank_data = read_tank("../config.json")
+images = read_map("../assets/config.json")
+tank_data = read_tank("../assets/config.json")
 objs = []  # List to store the objects.
 for tank in tank_data:
     temp = Tank(f"../assets/images/Default size/{tank['image']}.png", tank["pos"])

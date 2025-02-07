@@ -80,4 +80,4 @@ def read_tank(path: str) -> list | None:
 
 
 if __name__ == "__main__":
-    read_map("./config.json")
+    read_map("assets/config.json")

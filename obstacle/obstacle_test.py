@@ -10,8 +10,8 @@ from level import *
 
 pygame.init()
 screen = pygame.display.set_mode((918, 515))
-images = read_map("../config.json")
-obstacle_ = read_obstacle("../config.json")
+images = read_map("../assets/config.json")
+obstacle_ = read_obstacle("../assets/config.json")
 objs = []  # List to store the objects.
 for obs in obstacle_:
     for p in obs["pos"]:

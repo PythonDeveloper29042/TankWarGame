@@ -10,7 +10,7 @@ from level import *
 
 pygame.init()
 screen = pygame.display.set_mode((918, 515))
-images = read_map("../config.json")
+images = read_map("../assets/config.json")
 map_ = Map(images,screen)
 
 while True:

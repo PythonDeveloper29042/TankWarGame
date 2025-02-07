@@ -14,6 +14,7 @@ This project is a simple tank game built using Python and Pygame. The game invol
   - [Install Git](#install-git)
   - [Cloning the repository](#cloning-the-repository)
   - [Running the game](#running-the-game-1)
+  - [Make a standalone executable (optional)](#make-a-standalone-executable-optional-)
 - [Game Rules](#game-rules)
 - [Levels of the game](#levels-of-the-game)
 - [Inquiry](#inquiry)
@@ -32,7 +33,7 @@ To run this project, you need to have Python 3.8+ installed along with the follo
 You can install the required dependencies using the following command:
 
 In Windows:
-```batch
+```sh
 pip install -r requirements.txt
 ```
 
@@ -74,7 +75,7 @@ To run the game, you must confirm that these are installed:
 
 If not, you can install them using the following commands:  
 #### Install Python on Windows (via WinGet)
-```batch
+```sh
 winget install --id=Python.Python --source=msstore
 ```  
 #### Install Python on macOS (via Homebrew)
@@ -91,7 +92,7 @@ We already discussed the installation of the required dependencies in the Requir
 ### Install Git
 #### Install Git on Windows (via WinGet)
 In Windows, you can install Git using the Windows Package Manager. Run the following command in the Command Prompt:
-```cmd
+```sh
 winget install --id=Git.Git --source=msstore
 ```
 This will install Git for Windows using the Windows Package Manager.
@@ -119,7 +120,7 @@ git clone
 After all of these steps, you're all set! Now it's time to run the game! You can do this by running the following command:  
 
 In Windows:
-```batch
+```sh
 cd C:\path\to\the\repository
 python main.py
 ```
@@ -132,6 +133,25 @@ python3 main.py
 ```
 Make sure to replace `/path/to/the/repository` with the actual path to the repository on your computer.
 
+### Make a standalone executable (optional)  
+You can make a standalone executable by typing the following:  
+(In Windows)
+```sh
+cd C:\path\to\the\repository
+pip install pyinstaller
+pyinstaller --onefile --windowed --add-data "assets:assets" main.py
+```
+This will install PyInstaller and create an executable in the `dist` directory.  
+Make sure to replace `C:\path\to\the\repository` with the actual path of the repository.
+
+(In macOS/Linux)  
+```shell
+cd /path/to/the/repository
+pip3 install pyinstaller
+pyinstaller --onefile --windowed --add-data "assets:assets" main.py
+```
+This will install PyInstaller and create an executable in the `dist` directory.  
+Make sure to replace `/path/to/the/repository` with the actual path of the repository.
 ---
 
 ## Game Rules
