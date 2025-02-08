@@ -1,4 +1,13 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
+@project-description: This is a simple tank war game created using Pygame and Pymunk.
+@file-name: bullet.py
+@author: PythonDeveloper29042
+@author-email: pythondeveloper.29042@outlook.com
+@project: TankWarGame
+@github-repo: https://github.com/PythonDeveloper29042/TankWarGame.git
+@commit-date: 2025-02-08
 @description: This module contains the Bullet class.
 """
 import pymunk

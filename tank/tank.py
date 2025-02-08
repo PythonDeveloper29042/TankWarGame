@@ -2,9 +2,14 @@
 # -*- coding: utf-8 -*-
 
 """
+@project-description: This is a simple tank war game created using Pygame and Pymunk.
 @file-name: tank.py
+@author: PythonDeveloper29042
+@author-email: pythondeveloper.29042@outlook.com
+@project: TankWarGame
+@github-repo: https://github.com/PythonDeveloper29042/TankWarGame.git
+@commit-date: 2025-02-08
 @description: This file contains the Tank class, which is used to create the tank in the game.
-
 """
 import pygame
 from math import sin, cos, tan, pi

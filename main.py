@@ -8,7 +8,7 @@
 @author-email: pythondeveloper.29042@outlook.com
 @project: TankWarGame
 @github-repo: https://github.com/PythonDeveloper29042/TankWarGame.git
-@commit-date: 
+@commit-date: 2025-02-08
 @description: This file contains the main function of the game.
 """
 
