@@ -29,8 +29,8 @@ def read_json(path: str) -> list:
     """
     with open(path, "r") as file:
         t = json.loads(file.read())
-        map = t["level1"]
-    return map
+        map_ = t["level1"]
+    return map_
 
 
 def read_map(path: str) -> list | None:
@@ -40,13 +40,13 @@ def read_map(path: str) -> list | None:
     Returns:
         list | None: The map data, or None if an error occurred.
     """
-    map = None
+    map_ = None
     try:
-        map = read_json(path)
+        map_ = read_json(path)
     except Exception as e:
         print("Failed to read the map data.")
         return None
-    return map["map"]
+    return map_["map"]
 
 
 def read_obstacle(path: str) -> list | None:
